@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { forwardRef, useImperativeHandle, useState } from "react";
 
-const ResultInput = ({ state }) => {
-  console.log(state);
+const ResultInput = forwardRef((props, ref) => {
   const [text, setText] = useState("");
-  /*if(state != "") {
-    
-  }*/
-  return <input value={state}>{state}</input>;
-};
+  useImperativeHandle(ref, () => ({
+    InputText(value) {
+      console.log(value);
+    },
+  }));
+  //const ff = ({ state }) => {};
+  //return <input value={state}>{state}</input>;
+});
 
 export default ResultInput;
