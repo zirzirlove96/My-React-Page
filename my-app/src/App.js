@@ -1,14 +1,12 @@
 import style from "../src/style/main.module.css";
 import Button from "./component/Button";
-import ResultInput from "./component/ResultInput";
+import CommonFunction from "./component/CommonFunction";
 
 function App() {
-  //const [text, setText] = useState("");
   return (
     <div>
       <div className={style.Div}>
         <div className={style.Div2}>
-          <ResultInput />
           <Button value={"AC"}></Button>
           <Button value={"DEL"}></Button>
           <Button value={"÷"}></Button>
