@@ -10,6 +10,10 @@ function App() {
           <Button></Button>
         </div>
       </div>
+      <hr />
+      <div>
+        <ResultInput></ResultInput>
+      </div>
     </div>
   );
 }

@@ -2,24 +2,39 @@ import { useEffect, useRef, useState } from "react";
 import ResultInput from "./ResultInput";
 import CommonFunction from "./CommonFunction";
 
-const Button = ({ value }) => {
+const Button = (props) => {
   const [state, setState] = useState("");
   const [state2, setState2] = useState([]);
   const childRef = useRef(null);
   const onClick = (e) => {
-    setState((prev) => prev + e.target.value);
+    const target_name = e.target.value;
+    if (target_name == "DEL") {
+      setState("");
+      setState2([]);
+    } else if (target_name == "AC") {
+      let str = String(state).slice(0, -1);
+      setState((prev) => str);
+    } else {
+      let str2 = String(state);
+      if (str2.length == 1 && target_name != "=") {
+        alert("변경할 값이 정해지지 않았습니다. 예시 ) 판매가 = 판매가 * 수량");
+      } else {
+        setState((prev) => prev + e.target.value);
+      }
+    }
   };
 
   const onClick2 = (e) => {
-    console.log(e);
+    if (e.target.value == "save") {
+      setState2((currentArray) => [state, ...currentArray]);
+    }
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (state != "") {
       console.log(state);
-      //childRef.current.inputText2(state);
     }
-  }, [state]);
+  }, [state]);*/
   //<CommonFunction ref={childRef} />
   return (
     <>
@@ -77,6 +92,7 @@ const Button = ({ value }) => {
       <button value={"save"} onClick={onClick2}>
         save
       </button>
+      <ul>{state2 == "" ? "" : state2.map((value) => <li>{value}</li>)}</ul>
     </>
   );
 };
