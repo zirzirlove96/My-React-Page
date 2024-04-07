@@ -4,7 +4,7 @@ const CommonFunction = forwardRef((props, ref) => {
   const [text, setText] = useState("");
   useImperativeHandle(ref, () => ({
     inputText2(value) {
-      //setText(value);
+      setText(value);
       console.log(value);
     },
   }));
