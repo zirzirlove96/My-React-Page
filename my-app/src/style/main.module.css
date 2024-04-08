@@ -1,4 +1,4 @@
-Div {
+.div {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -6,9 +6,22 @@ Div {
   height: 100vh;
 }
 
-Div2 {
+.div2 {
   display: grid;
+  width: 40%;
+  max-width: 450px;
+  height: 50%;
   grid-template-columns: repeat(4, 1fr);
+}
+
+.button {
+  background-color: #f2f3f5;
+  border: none;
+  color: black;
+  font-size: 1.5rem;
+  border-radius: 35px;
+  cursor: pointer;
+  box-shadow: 3px 3px 3px lightgray;
 }
 
 Input {

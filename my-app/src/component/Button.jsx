@@ -30,62 +30,60 @@ const Button = (props) => {
     }
   };
 
-  /*useEffect(() => {
+  useEffect(() => {
     if (state != "") {
-      console.log(state);
+      props.onClick(state);
     }
-  }, [state]);*/
+  }, [state]);
   //<CommonFunction ref={childRef} />
   return (
     <>
-      <input type="text" value={state} readOnly></input>
-
-      <button value={"AC"} onClick={onClick}>
+      <button value={"AC"} className={props.style} onClick={onClick}>
         AC
       </button>
-      <button value={"DEL"} onClick={onClick}>
+      <button value={"DEL"} className={props.style} onClick={onClick}>
         DEL
       </button>
-      <button value={"÷"} onClick={onClick}>
+      <button value={"÷"} className={props.style} onClick={onClick}>
         +
       </button>
-      <button value={"7"} onClick={onClick}>
+      <button value={"7"} className={props.style} onClick={onClick}>
         9
       </button>
-      <button value={"8"} onClick={onClick}>
+      <button value={"8"} className={props.style} onClick={onClick}>
         7
       </button>
-      <button value={"9"} onClick={onClick}>
+      <button value={"9"} className={props.style} onClick={onClick}>
         8
       </button>
-      <button value={"*"} onClick={onClick}>
+      <button value={"*"} className={props.style} onClick={onClick}>
         *
       </button>
-      <button value={"4"} onClick={onClick}>
+      <button value={"4"} className={props.style} onClick={onClick}>
         4
       </button>
-      <button value={"5"} onClick={onClick}>
+      <button value={"5"} className={props.style} onClick={onClick}>
         5
       </button>
-      <button value={"6"} onClick={onClick}>
+      <button value={"6"} className={props.style} onClick={onClick}>
         6
       </button>
-      <button value={"-"} onClick={onClick}>
+      <button value={"-"} className={props.style} onClick={onClick}>
         -
       </button>
-      <button value={"1"} onClick={onClick}>
+      <button value={"1"} className={props.style} onClick={onClick}>
         1
       </button>
-      <button value={"2"} onClick={onClick}>
+      <button value={"2"} className={props.style} onClick={onClick}>
         2
       </button>
-      <button value={"3"} onClick={onClick}>
+      <button value={"3"} className={props.style} onClick={onClick}>
         3
       </button>
-      <button value={"="} onClick={onClick}>
+      <button value={"="} className={props.style} onClick={onClick}>
         =
       </button>
-      <button value={"0"} onClick={onClick}>
+      <button value={"0"} className={props.style} onClick={onClick}>
         0
       </button>
       <hr></hr>
