@@ -1,7 +1,7 @@
 .div {
-  display: flex;
+  /*  display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center;*/
   align-items: center;
   height: 100vh;
 }
@@ -22,6 +22,14 @@
   border-radius: 35px;
   cursor: pointer;
   box-shadow: 3px 3px 3px lightgray;
+}
+
+.input {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 Input {

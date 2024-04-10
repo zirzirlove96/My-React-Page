@@ -5,7 +5,7 @@ import CommonFunction from "./CommonFunction";
 const Button = (props) => {
   const [state, setState] = useState("");
   const [state2, setState2] = useState([]);
-  const childRef = useRef(null);
+  //const childRef = useRef(null);
   const onClick = (e) => {
     const target_name = e.target.value;
     if (target_name == "DEL") {
@@ -86,13 +86,13 @@ const Button = (props) => {
       <button value={"0"} className={props.style} onClick={onClick}>
         0
       </button>
-      <hr></hr>
-      <button value={"save"} onClick={onClick2}>
-        save
-      </button>
-      <ul>{state2 == "" ? "" : state2.map((value) => <li>{value}</li>)}</ul>
     </>
   );
 };
+
+/**      <button value={"save"} onClick={onClick2}>
+        save
+      </button>
+      <ul>{state2 == "" ? "" : state2.map((value) => <li>{value}</li>)}</ul> */
 
 export default Button;
