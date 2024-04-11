@@ -11,6 +11,7 @@ function App() {
   }));*/
   const [input, setInput] = useState("");
   const [arr, setArr] = useState([]);
+  const [code, setCode] = useState("");
   const updateInput = (value) => {
     console.log(value);
     setInput(value);
@@ -21,19 +22,45 @@ function App() {
       setArr((currentArray) => [input, ...currentArray]);
     }
   };
+  const siteCodeChange = (e) => {
+    const siteCode = e.target.value;
+    console.log(siteCode);
+    setCode(siteCode);
+  };
   return (
     <>
       <div>
-        <div className={style.div}>
-          <input type="text" readOnly value={input}></input>
-          <DIV2 columns="4">
-            <Button style={style.button} onClick={updateInput}></Button>
-          </DIV2>
-          <SAVEBUTTON onClick={onClick} value="save">
-            save
-          </SAVEBUTTON>
-          <ul>{arr == "" ? "??" : arr.map((value) => <li>{value}</li>)}</ul>
+        <div>
+          <select onChange={siteCodeChange}>
+            <option>사이트코드</option>
+            <option value="A077">A077</option>
+            <option value="A522">A522</option>
+            <option value="A523">A523</option>
+            <option value="A525">A525</option>
+          </select>
         </div>
+        {code == "" ? (
+          "사이트 코드를 선택해주세요."
+        ) : (
+          <>
+            <div className={style.div}>
+              <input type="text" readOnly value={input}></input>
+              <DIV2 columns="4">
+                <Button style={style.button} onClick={updateInput}></Button>
+              </DIV2>
+              <SAVEBUTTON onClick={onClick} value="save">
+                save
+              </SAVEBUTTON>
+              <ul>{arr == "" ? "" : arr.map((value) => <li>{value}</li>)}</ul>
+            </div>
+            <div>
+              <select>
+                <option>opt</option>
+              </select>
+            </div>
+            <div></div>
+          </>
+        )}
       </div>
     </>
   );
