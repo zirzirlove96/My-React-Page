@@ -3,9 +3,9 @@ import axios from "axios";
 
 const Select = () => {
   const [option, setOption] = useState([]);
-  axios.get("/common/getRegisterList").then((value) => {
+  /*axios.get("/common/getRegisterList").then((value) => {
     setOption((currentArray) => [value, ...currentArray]);
-  });
+  });*/
 
   return (
     <select>
@@ -13,3 +13,5 @@ const Select = () => {
     </select>
   );
 };
+
+export default Select;

@@ -6,4 +6,8 @@ export class CommonService {
   getAccount(): string {
     return "asdasd";
   }
+
+  getOrderInfo(): string {
+    return "판매가-price || 상품명-model";
+  }
 }

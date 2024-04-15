@@ -5,7 +5,14 @@ import CommonFunction from "./CommonFunction";
 const Button = (props) => {
   const [state, setState] = useState("");
   const [state2, setState2] = useState([]);
-  //const childRef = useRef(null);
+  const [buttonText, setButtonText] = useState([]);
+
+  if (props.siteCode !== "") {
+    /*axios.get("/common/getRegisterList").then((value) => {
+    setOption((currentArray) => [value, ...currentArray]);
+  });*/
+  }
+
   const onClick = (e) => {
     const target_name = e.target.value;
     if (target_name == "DEL") {
@@ -47,20 +54,20 @@ const Button = (props) => {
       <button value={"÷"} className={props.style} onClick={onClick}>
         +
       </button>
-      <button value={"7"} className={props.style} onClick={onClick}>
-        9
+      <button value={"-"} className={props.style} onClick={onClick}>
+        -
       </button>
-      <button value={"8"} className={props.style} onClick={onClick}>
-        7
-      </button>
-      <button value={"9"} className={props.style} onClick={onClick}>
-        8
+      <button value={"+"} className={props.style} onClick={onClick}>
+        +
       </button>
       <button value={"*"} className={props.style} onClick={onClick}>
         *
       </button>
-      <button value={"4"} className={props.style} onClick={onClick}>
-        4
+      <button value={"("} className={props.style} onClick={onClick}>
+        (
+      </button>
+      <button value={")"} className={props.style} onClick={onClick}>
+        )
       </button>
       <button value={"5"} className={props.style} onClick={onClick}>
         5
@@ -82,6 +89,15 @@ const Button = (props) => {
       </button>
       <button value={"="} className={props.style} onClick={onClick}>
         =
+      </button>
+      <button value={"0"} className={props.style} onClick={onClick}>
+        0
+      </button>
+      <button value={"0"} className={props.style} onClick={onClick}>
+        0
+      </button>
+      <button value={"0"} className={props.style} onClick={onClick}>
+        0
       </button>
       <button value={"0"} className={props.style} onClick={onClick}>
         0

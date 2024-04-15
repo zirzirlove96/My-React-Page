@@ -2,6 +2,8 @@ import { useImperativeHandle, useState } from "react";
 import style from "../src/style/main.module.css";
 import Button from "./component/Button";
 import styled from "styled-components";
+import Select from "./component/Select";
+import ResultInput from "./component/ResultInput";
 
 function App() {
   /*useImperativeHandle(ref, () => ({
@@ -13,18 +15,15 @@ function App() {
   const [arr, setArr] = useState([]);
   const [code, setCode] = useState("");
   const updateInput = (value) => {
-    console.log(value);
     setInput(value);
   };
   const onClick = (e) => {
     if (e.target.value === "save") {
-      console.log(arr);
       setArr((currentArray) => [input, ...currentArray]);
     }
   };
   const siteCodeChange = (e) => {
     const siteCode = e.target.value;
-    console.log(siteCode);
     setCode(siteCode);
   };
   return (
@@ -43,22 +42,35 @@ function App() {
           "사이트 코드를 선택해주세요."
         ) : (
           <>
-            <div className={style.div}>
-              <input type="text" readOnly value={input}></input>
-              <DIV2 columns="4">
-                <Button style={style.button} onClick={updateInput}></Button>
-              </DIV2>
-              <SAVEBUTTON onClick={onClick} value="save">
-                save
-              </SAVEBUTTON>
-              <ul>{arr == "" ? "" : arr.map((value) => <li>{value}</li>)}</ul>
+            <details>
+              <summary>계산기식 특별처리</summary>
+              <div className={style.div}>
+                <input type="text" readOnly value={input}></input>
+                <DIV2 columns="8">
+                  <Button
+                    style={style.button}
+                    onClick={updateInput}
+                    siteCode={code}
+                  ></Button>
+                </DIV2>
+                <SAVEBUTTON onClick={onClick} value="save">
+                  save
+                </SAVEBUTTON>
+                <ul>{arr == "" ? "" : arr.map((value) => <li>{value}</li>)}</ul>
+              </div>
+            </details>
+            <div>
+              <details>
+                <summary>선택형 특별처리</summary>
+                <Select siteCode={code}></Select>
+              </details>
             </div>
             <div>
-              <select>
-                <option>opt</option>
-              </select>
+              <details>
+                <summary>조건문 특별처리</summary>
+                <ResultInput siteCode={code}></ResultInput>
+              </details>
             </div>
-            <div></div>
           </>
         )}
       </div>
@@ -73,9 +85,9 @@ function App() {
 
 const DIV2 = styled.div`
   display: grid;
-  width: 40%;
-  max-width: 450px;
-  height: 50%;
+  width: 50%;
+  max-width: 700px;
+  height: 25%;
   grid-template-columns: repeat(${(props) => props.columns}, 1fr);
 `;
 

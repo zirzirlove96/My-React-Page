@@ -8,4 +8,13 @@ export class CommonController {
   getAccount(): string {
     return this.CommonService.getAccount();
   }
+
+  //사이트에서 제공하는 주문 데이터 가져오기
+  @POST("/siteCode=")
+  getOrderInfo(): string {
+    return this.CommonService.getOrderInfo();
+  }
+
+  //my-cate처럼 업체 DB에 특별처리 테이블 생성
+  //필드 : 사이트코드, 특별처리
 }
