@@ -1,8 +1,8 @@
+import { Repository } from 'typeorm';
 import { LoginSite } from 'src/entities/login_site.entity';
-import { LoginSiteRespository } from 'src/respository/LoginSiteRepository';
 export declare class CommonService {
-    private loginsiteRepository;
-    constructor(loginsiteRepository: LoginSiteRespository);
+    private readonly loginsiteRepository;
+    constructor(loginsiteRepository: Repository<LoginSite>);
     getAccount(): Promise<LoginSite[]>;
     getOrderInfo(): string;
 }

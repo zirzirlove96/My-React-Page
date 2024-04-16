@@ -12,19 +12,21 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const typeorm_1 = require("@nestjs/typeorm");
 const path_1 = require("path");
+const LoginSiteRepository_1 = require("./respository/LoginSiteRepository");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            typeorm_1.TypeOrmModule.forFeature([LoginSiteRepository_1.LoginSiteRespository]),
             typeorm_1.TypeOrmModule.forRoot({
-                type: "mysql",
-                host: "localhost",
+                type: 'mysql',
+                host: process.env.DB_HOSTNAME,
                 port: 3306,
-                username: "root",
-                password: "0000",
-                database: "study",
+                username: process.env.DB_USERNAME,
+                password: process.env.DB_PASSWORD,
+                database: 'study',
                 entities: [(0, path_1.join)(__dirname, '/**/*.entity.ts')],
                 synchronize: false,
             }),

@@ -11,8 +11,7 @@ const common_service_1 = require("./common.service");
 const common_1 = require("@nestjs/common");
 const common_controller_1 = require("./common.controller");
 const typeorm_1 = require("@nestjs/typeorm");
-const path_1 = require("path");
-const LoginSiteRepository_1 = require("../respository/LoginSiteRepository");
+const login_site_entity_1 = require("../entities/login_site.entity");
 let CommonModule = class CommonModule {
 };
 exports.CommonModule = CommonModule;
@@ -21,17 +20,18 @@ exports.CommonModule = CommonModule = __decorate([
         controllers: [common_controller_1.CommonController],
         providers: [common_service_1.CommonService],
         imports: [
-            typeorm_1.TypeOrmModule.forFeature([LoginSiteRepository_1.LoginSiteRespository]),
+            typeorm_1.TypeOrmModule.forFeature([login_site_entity_1.LoginSite]),
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'mysql',
-                host: 'localhost',
+                host: process.env.DB_HOSTNAME,
                 port: 3306,
-                username: 'root',
-                password: '0000',
+                username: process.env.DB_USERNAME,
+                password: process.env.DB_PASSWORD,
                 database: 'study',
-                entities: [(0, path_1.join)(__dirname, '/**/*.entity.ts')],
+                entities: [login_site_entity_1.LoginSite],
                 synchronize: false,
             }),
+            login_site_entity_1.LoginSite,
         ],
     })
 ], CommonModule);

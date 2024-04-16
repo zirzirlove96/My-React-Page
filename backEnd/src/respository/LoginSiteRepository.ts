@@ -7,4 +7,8 @@ import { EntityRepository, Repository } from 'typeorm';
 @EntityRepository(LoginSite)
 export class LoginSiteRespository extends Repository<LoginSite> {
   // entity 컨트롤을 위해서는 Repository<>를 extends 해주어야 함
+  /*async find(): Promise<LoginSite[]> {
+    
+    return "123"
+  }*/
 }

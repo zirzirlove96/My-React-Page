@@ -4,12 +4,13 @@ import { CommonController } from './common.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { LoginSiteRespository } from 'src/respository/LoginSiteRepository';
+import { LoginSite } from 'src/entities/login_site.entity';
 
 @Module({
   controllers: [CommonController],
   providers: [CommonService],
   imports: [
-    TypeOrmModule.forFeature([LoginSiteRespository]),
+    TypeOrmModule.forFeature([LoginSite]),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOSTNAME,
@@ -17,9 +18,10 @@ import { LoginSiteRespository } from 'src/respository/LoginSiteRepository';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: 'study',
-      entities: [join(__dirname, '/**/*.entity.ts')],
+      entities: [LoginSite],
       synchronize: false,
     }),
+    LoginSite,
   ],
 })
 export class CommonModule {}

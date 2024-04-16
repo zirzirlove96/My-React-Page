@@ -8,10 +8,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CommonService = void 0;
+const typeorm_1 = require("typeorm");
 const common_1 = require("@nestjs/common");
-const LoginSiteRepository_1 = require("../respository/LoginSiteRepository");
+const typeorm_2 = require("@nestjs/typeorm");
+const login_site_entity_1 = require("../entities/login_site.entity");
 let CommonService = class CommonService {
     constructor(loginsiteRepository) {
         this.loginsiteRepository = loginsiteRepository;
@@ -27,6 +32,7 @@ let CommonService = class CommonService {
 exports.CommonService = CommonService;
 exports.CommonService = CommonService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [LoginSiteRepository_1.LoginSiteRespository])
+    __param(0, (0, typeorm_2.InjectRepository)(login_site_entity_1.LoginSite)),
+    __metadata("design:paramtypes", [typeorm_1.Repository])
 ], CommonService);
 //# sourceMappingURL=common.service.js.map

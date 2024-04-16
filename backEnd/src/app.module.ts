@@ -3,9 +3,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
+import { LoginSiteRespository } from './respository/LoginSiteRepository';
 
 @Module({
   imports: [
+    TypeOrmModule.forFeature([LoginSiteRespository]),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOSTNAME,
