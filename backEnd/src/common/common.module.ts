@@ -12,10 +12,10 @@ import { LoginSiteRespository } from 'src/respository/LoginSiteRepository';
     TypeOrmModule.forFeature([LoginSiteRespository]),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: process.env.DB_HOSTNAME,
       port: 3306,
-      username: 'root',
-      password: '0000',
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
       database: 'study',
       entities: [join(__dirname, '/**/*.entity.ts')],
       synchronize: false,
