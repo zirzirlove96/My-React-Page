@@ -12,6 +12,7 @@ const common_1 = require("@nestjs/common");
 const common_controller_1 = require("./common.controller");
 const typeorm_1 = require("@nestjs/typeorm");
 const login_site_entity_1 = require("../entities/login_site.entity");
+const config_1 = require("@nestjs/config");
 let CommonModule = class CommonModule {
 };
 exports.CommonModule = CommonModule;
@@ -20,6 +21,10 @@ exports.CommonModule = CommonModule = __decorate([
         controllers: [common_controller_1.CommonController],
         providers: [common_service_1.CommonService],
         imports: [
+            config_1.ConfigModule.forRoot({
+                envFilePath: '.env',
+                isGlobal: true,
+            }),
             typeorm_1.TypeOrmModule.forFeature([login_site_entity_1.LoginSite]),
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'mysql',

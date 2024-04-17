@@ -15,10 +15,22 @@ let LoginSite = class LoginSite {
 };
 exports.LoginSite = LoginSite;
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)(),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], LoginSite.prototype, "ampCode", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], LoginSite.prototype, "siteCode", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], LoginSite.prototype, "Id", void 0);
+__decorate([
+    (0, typeorm_1.PrimaryGeneratedColumn)(),
+    __metadata("design:type", Number)
+], LoginSite.prototype, "number", void 0);
 exports.LoginSite = LoginSite = __decorate([
-    (0, typeorm_1.Entity)("login_site")
+    (0, typeorm_1.Entity)('login_site')
 ], LoginSite);
 //# sourceMappingURL=login_site.entity.js.map

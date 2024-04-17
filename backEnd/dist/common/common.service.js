@@ -21,11 +21,18 @@ let CommonService = class CommonService {
     constructor(loginsiteRepository) {
         this.loginsiteRepository = loginsiteRepository;
     }
-    async getAccount() {
-        const result = await this.loginsiteRepository.find();
+    async getAccount({ ampCode }) {
+        const result = await this.loginsiteRepository.find({
+            select: {
+                siteCode: true,
+            },
+            where: {
+                ampCode: ampCode,
+            },
+        });
         return result;
     }
-    getOrderInfo() {
+    async getOrderInfo({ siteCode }) {
         return '판매가-price || 상품명-model';
     }
 };

@@ -5,11 +5,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { LoginSiteRespository } from 'src/respository/LoginSiteRepository';
 import { LoginSite } from 'src/entities/login_site.entity';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   controllers: [CommonController],
   providers: [CommonService],
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+      isGlobal: true,
+    }),
     TypeOrmModule.forFeature([LoginSite]),
     TypeOrmModule.forRoot({
       type: 'mysql',

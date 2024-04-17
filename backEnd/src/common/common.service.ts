@@ -1,5 +1,5 @@
 import { Entity, EntityRepository, Repository } from 'typeorm';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Body } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LoginSite } from 'src/entities/login_site.entity';
 import { LoginSiteRespository } from 'src/respository/LoginSiteRepository';
@@ -11,12 +11,21 @@ export class CommonService {
     private readonly loginsiteRepository: Repository<LoginSite>,
   ) {}
   //@Injectable()
-  async getAccount(): Promise<LoginSite[]> {
-    const result = await this.loginsiteRepository.find();
+
+  async getAccount({ ampCode }): Promise<LoginSite[]> {
+    const result = await this.loginsiteRepository.find({
+      select: {
+        siteCode: true,
+      },
+      where: {
+        ampCode: ampCode,
+      },
+    });
     return result;
   }
 
-  getOrderInfo(): string {
+  async getOrderInfo({ siteCode }): Promise<string> {
+    //const result = await this.
     return '판매가-price || 상품명-model';
   }
 }

@@ -8,6 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CommonController = void 0;
 const common_1 = require("@nestjs/common");
@@ -16,27 +19,48 @@ let CommonController = class CommonController {
     constructor(commonService) {
         this.commonService = commonService;
     }
-    async getAccount() {
-        console.log('123');
-        return await this.commonService.getAccount();
+    async getAccount(ampCode) {
+        return await this.commonService.getAccount({ ampCode });
     }
-    getOrderInfo() {
-        return this.commonService.getOrderInfo();
+    async getOrderInfo(siteCode) {
+        return await this.commonService.getOrderInfo({ siteCode });
+    }
+    async getPreConstructList(siteCode) {
+        return await this.commonService.getOrderInfo({ siteCode });
+    }
+    async getAssumeList(siteCode) {
+        return await this.commonService.getOrderInfo({ siteCode });
     }
 };
 exports.CommonController = CommonController;
 __decorate([
-    (0, common_1.Get)(),
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Body)('ampCode')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], CommonController.prototype, "getAccount", null);
 __decorate([
-    (0, common_1.Post)('/siteCode='),
+    (0, common_1.Get)(':siteCode'),
+    __param(0, (0, common_1.Param)('siteCode')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", String)
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
 ], CommonController.prototype, "getOrderInfo", null);
+__decorate([
+    (0, common_1.Get)(':siteCode'),
+    __param(0, (0, common_1.Param)('siteCode')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], CommonController.prototype, "getPreConstructList", null);
+__decorate([
+    (0, common_1.Get)(':siteCode'),
+    __param(0, (0, common_1.Param)('siteCode')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], CommonController.prototype, "getAssumeList", null);
 exports.CommonController = CommonController = __decorate([
     (0, common_1.Controller)('common'),
     __metadata("design:paramtypes", [common_service_1.CommonService])

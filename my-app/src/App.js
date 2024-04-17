@@ -1,9 +1,10 @@
-import { useImperativeHandle, useState } from "react";
+import { useEffect, useImperativeHandle, useState } from "react";
 import style from "../src/style/main.module.css";
 import Button from "./component/Button";
 import styled from "styled-components";
 import Select from "./component/Select";
 import ResultInput from "./component/ResultInput";
+import axios from "axios";
 
 function App() {
   /*useImperativeHandle(ref, () => ({
@@ -14,6 +15,32 @@ function App() {
   const [input, setInput] = useState("");
   const [arr, setArr] = useState([]);
   const [code, setCode] = useState("");
+
+  /*async function getUserInfo() {
+    try {
+      const response = await axios.post("localhost:4000/common", {
+        ampCode: "amp_engine",
+      });
+
+      return response;
+    } catch (e) {
+      console.error(e);
+    }
+  }*/
+
+  useEffect(() => {
+    //const response = getUserInfo(); //사이트 코드 가져오기
+    //버튼에 넣어줄 주문 데이터
+    /*const func1 = async function () {
+      const response2 = await axios.get("localhost:4000/common?1");
+    };*/
+    //자주쓰는 특별처리 리스트
+    /*const func2 = async function () {
+      const response2 = await axios.get("localhost:4000/common?1");
+    }*/
+    //func();
+  }, []);
+
   const updateInput = (value) => {
     setInput(value);
   };
@@ -24,6 +51,7 @@ function App() {
   };
   const siteCodeChange = (e) => {
     const siteCode = e.target.value;
+    console.log(e.target.value);
     setCode(siteCode);
   };
   return (
