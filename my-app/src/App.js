@@ -70,23 +70,35 @@ function App() {
           "사이트 코드를 선택해주세요."
         ) : (
           <>
-            <details>
-              <summary>계산기식 특별처리</summary>
-              <div className={style.div}>
-                <input type="text" readOnly value={input}></input>
-                <DIV2 columns="8">
-                  <Button
-                    style={style.button}
-                    onClick={updateInput}
-                    siteCode={code}
-                  ></Button>
-                </DIV2>
-                <SAVEBUTTON onClick={onClick} value="save">
-                  save
-                </SAVEBUTTON>
-                <ul>{arr == "" ? "" : arr.map((value) => <li>{value}</li>)}</ul>
-              </div>
-            </details>
+            <div>
+              <details>
+                <summary>{code} 쇼핑몰에 적용된 특별처리 내역</summary>
+                <ul>
+                  <li>특별처리 내ㅑ용...</li>
+                </ul>
+              </details>
+            </div>
+            <div>
+              <details>
+                <summary>계산기식 특별처리</summary>
+                <div className={style.div}>
+                  <input type="text" readOnly value={input}></input>
+                  <DIV2 columns="8">
+                    <Button
+                      style={style.button}
+                      onClick={updateInput}
+                      siteCode={code}
+                    ></Button>
+                  </DIV2>
+                  <SAVEBUTTON onClick={onClick} value="save">
+                    save
+                  </SAVEBUTTON>
+                  <ul>
+                    {arr == "" ? "" : arr.map((value) => <li>{value}</li>)}
+                  </ul>
+                </div>
+              </details>
+            </div>
             <div>
               <details>
                 <summary>선택형 특별처리</summary>
