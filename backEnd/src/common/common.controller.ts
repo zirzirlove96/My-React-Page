@@ -1,6 +1,8 @@
 import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { CommonService } from './common.service';
 import { LoginSite } from 'src/entities/login_site.entity';
+import { get } from 'http';
+import { SoapModuleOptionsFactoryType } from 'nestjs-soap';
 
 @Controller('common')
 export class CommonController {
@@ -21,7 +23,7 @@ export class CommonController {
   //필드 : 사이트코드, 특별처리
 
   //사이트에서 자주 사용되는 특별처리 리스트
-  @Get(':siteCode')
+  /*@Get(':siteCode')
   async getPreConstructList(
     @Param('siteCode') siteCode: string,
   ): Promise<string> {
@@ -32,5 +34,5 @@ export class CommonController {
   @Get(':siteCode')
   async getAssumeList(@Param('siteCode') siteCode: string): Promise<string> {
     return await this.commonService.getOrderInfo({ siteCode });
-  }
+  }*/
 }

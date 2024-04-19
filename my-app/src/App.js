@@ -15,8 +15,10 @@ function App() {
   const [input, setInput] = useState("");
   const [arr, setArr] = useState([]);
   const [code, setCode] = useState("");
+  const [orderinfo, setOrderinfo] = useState();
+  const [orderinfo2, setOrderinfo2] = useState();
 
-  /*async function getUserInfo() {
+  async function getUserInfo() {
     try {
       const response = await axios.post("localhost:4000/common", {
         ampCode: "amp_engine",
@@ -26,20 +28,25 @@ function App() {
     } catch (e) {
       console.error(e);
     }
-  }*/
+  }
 
-  useEffect(() => {
-    //const response = getUserInfo(); //사이트 코드 가져오기
+  useEffect(async () => {
+    const response = await getUserInfo(); //사이트 코드 가져오기
     //버튼에 넣어줄 주문 데이터
-    /*const func1 = async function () {
-      const response2 = await axios.get("localhost:4000/common?1");
-    };*/
+    const func1 = async function () {
+      const response2 = await axios.get("localhost:4000/common?siteCode=");
+      setOrderinfo(response2);
+    };
     //자주쓰는 특별처리 리스트
     /*const func2 = async function () {
       const response2 = await axios.get("localhost:4000/common?1");
     }*/
-    //func();
+    func1();
   }, []);
+
+  /*useEffect(() => {
+    
+  }, [code]);*/
 
   const updateInput = (value) => {
     setInput(value);
@@ -88,6 +95,7 @@ function App() {
                       style={style.button}
                       onClick={updateInput}
                       siteCode={code}
+                      orderinfo={orderinfo}
                     ></Button>
                   </DIV2>
                   <SAVEBUTTON onClick={onClick} value="save">

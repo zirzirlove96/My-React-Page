@@ -5,12 +5,21 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { LoginSiteRespository } from 'src/respository/LoginSiteRepository';
 import { LoginSite } from 'src/entities/login_site.entity';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { SoapModule } from 'nestjs-soap';
 
 @Module({
   controllers: [CommonController],
   providers: [CommonService],
   imports: [
+    /*SoapModule.registerAsync({
+      clientName: 'EASYLAYW',
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        uri: configService.get('http://amp.playauto.co.kr/api/ent/GetOrderTitle'),
+      }),
+    }),*/
     ConfigModule.forRoot({
       envFilePath: '.env',
       isGlobal: true,

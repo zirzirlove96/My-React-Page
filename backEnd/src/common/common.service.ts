@@ -3,6 +3,8 @@ import { Injectable, Body } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LoginSite } from 'src/entities/login_site.entity';
 import { LoginSiteRespository } from 'src/respository/LoginSiteRepository';
+import axios from 'axios';
+import { SoapModuleOptionsFactoryType } from 'nestjs-soap';
 
 @Injectable()
 export class CommonService {
@@ -26,6 +28,17 @@ export class CommonService {
 
   async getOrderInfo({ siteCode }): Promise<string> {
     //const result = await this.
-    return '판매가-price || 상품명-model';
+    let orderinfo;
+    try {
+      orderinfo = await axios.post(process.env.ENT_URL, {
+        site_code: siteCode,
+      });
+
+      console.log(orderinfo);
+    } catch (e) {
+      console.error(e);
+    }
+    //return '판매가-price || 상품명-model';
+    return orderinfo;
   }
 }
