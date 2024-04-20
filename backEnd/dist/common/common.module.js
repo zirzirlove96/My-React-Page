@@ -13,6 +13,7 @@ const common_controller_1 = require("./common.controller");
 const typeorm_1 = require("@nestjs/typeorm");
 const login_site_entity_1 = require("../entities/login_site.entity");
 const config_1 = require("@nestjs/config");
+const take_order_special_1 = require("../entities/take_order_special");
 let CommonModule = class CommonModule {
 };
 exports.CommonModule = CommonModule;
@@ -36,7 +37,18 @@ exports.CommonModule = CommonModule = __decorate([
                 entities: [login_site_entity_1.LoginSite],
                 synchronize: false,
             }),
+            typeorm_1.TypeOrmModule.forRoot({
+                type: 'mysql',
+                host: process.env.DB_HOSTNAME,
+                port: 3306,
+                username: process.env.DB_USERNAME,
+                password: process.env.DB_PASSWORD,
+                database: 'study2',
+                entities: [take_order_special_1.TakeOrderSpecial],
+                synchronize: false,
+            }),
             login_site_entity_1.LoginSite,
+            take_order_special_1.TakeOrderSpecial,
         ],
     })
 ], CommonModule);

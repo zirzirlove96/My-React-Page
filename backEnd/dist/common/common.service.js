@@ -17,6 +17,7 @@ const typeorm_1 = require("typeorm");
 const common_1 = require("@nestjs/common");
 const typeorm_2 = require("@nestjs/typeorm");
 const login_site_entity_1 = require("../entities/login_site.entity");
+const axios_1 = require("axios");
 let CommonService = class CommonService {
     constructor(loginsiteRepository) {
         this.loginsiteRepository = loginsiteRepository;
@@ -33,7 +34,17 @@ let CommonService = class CommonService {
         return result;
     }
     async getOrderInfo({ siteCode }) {
-        return '판매가-price || 상품명-model';
+        let orderinfo;
+        try {
+            orderinfo = await axios_1.default.post('http://localhost:4000/common', {
+                site_code: siteCode,
+            });
+            console.log(orderinfo);
+        }
+        catch (e) {
+            console.error(e);
+        }
+        return orderinfo;
     }
 };
 exports.CommonService = CommonService;

@@ -4,6 +4,10 @@ const core_1 = require("@nestjs/core");
 const common_module_1 = require("./common/common.module");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(common_module_1.CommonModule);
+    app.enableCors({
+        origin: ['http://localhost:3000'],
+        credentials: true,
+    });
     await app.listen(4000);
 }
 bootstrap();

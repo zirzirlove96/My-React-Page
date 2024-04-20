@@ -14,15 +14,26 @@ function App() {
   }));*/
   const [input, setInput] = useState("");
   const [arr, setArr] = useState([]);
+
   const [code, setCode] = useState("");
+  const [siteCode, setSiteCode] = useState([]);
+
   const [orderinfo, setOrderinfo] = useState();
   const [orderinfo2, setOrderinfo2] = useState();
 
+  //계정정보
   async function getUserInfo() {
     try {
-      const response = await axios.post("localhost:4000/common", {
+      const response = await axios.post("http://localhost:4000/common", {
         ampCode: "amp_engine",
       });
+
+      /*for (var i = 0; i < response.data.length; i++) {
+        //console.log(response.data[i].siteCode);
+        setSiteCode(response.data[i].siteCode);
+      }*/
+      console.log(response);
+      setSiteCode(response.data);
 
       return response;
     } catch (e) {
@@ -30,19 +41,38 @@ function App() {
     }
   }
 
-  useEffect(async () => {
-    const response = await getUserInfo(); //사이트 코드 가져오기
+  //특별처리 적용한 사항 리스트
+  async function getSpecialEffectList() {
+    try {
+      const response = await axios.post("http://localhost:4000/common/effect", {
+        ampCode: "amp_engine",
+        siteCode: code,
+      });
+      return response;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  useEffect(() => {
+    getUserInfo(); //사이트 코드 가져오기
     //버튼에 넣어줄 주문 데이터
-    const func1 = async function () {
+    /*const func1 = async function () {
       const response2 = await axios.get("localhost:4000/common?siteCode=");
       setOrderinfo(response2);
-    };
+    };*/
     //자주쓰는 특별처리 리스트
     /*const func2 = async function () {
       const response2 = await axios.get("localhost:4000/common?1");
     }*/
-    func1();
+    //func1();
   }, []);
+
+  useEffect(() => {
+    siteCode.map((value) => {
+      console.log(value.siteCode);
+    });
+  }, [siteCode]);
 
   /*useEffect(() => {
     
@@ -58,7 +88,6 @@ function App() {
   };
   const siteCodeChange = (e) => {
     const siteCode = e.target.value;
-    console.log(e.target.value);
     setCode(siteCode);
   };
   return (
@@ -67,10 +96,12 @@ function App() {
         <div>
           <select onChange={siteCodeChange}>
             <option>사이트코드</option>
-            <option value="A077">A077</option>
-            <option value="A522">A522</option>
-            <option value="A523">A523</option>
-            <option value="A525">A525</option>
+
+            {/*siteCode == ""
+              ? "등록된 쇼핑몰이 없습니다."
+              : siteCode.map((value) => (
+                  <option value={value.siteCode}>{value.siteCode}</option>
+              ))*/}
           </select>
         </div>
         {code == "" ? (

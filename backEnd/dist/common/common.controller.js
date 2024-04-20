@@ -25,12 +25,6 @@ let CommonController = class CommonController {
     async getOrderInfo(siteCode) {
         return await this.commonService.getOrderInfo({ siteCode });
     }
-    async getPreConstructList(siteCode) {
-        return await this.commonService.getOrderInfo({ siteCode });
-    }
-    async getAssumeList(siteCode) {
-        return await this.commonService.getOrderInfo({ siteCode });
-    }
 };
 exports.CommonController = CommonController;
 __decorate([
@@ -47,20 +41,6 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], CommonController.prototype, "getOrderInfo", null);
-__decorate([
-    (0, common_1.Get)(':siteCode'),
-    __param(0, (0, common_1.Param)('siteCode')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", Promise)
-], CommonController.prototype, "getPreConstructList", null);
-__decorate([
-    (0, common_1.Get)(':siteCode'),
-    __param(0, (0, common_1.Param)('siteCode')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", Promise)
-], CommonController.prototype, "getAssumeList", null);
 exports.CommonController = CommonController = __decorate([
     (0, common_1.Controller)('common'),
     __metadata("design:paramtypes", [common_service_1.CommonService])

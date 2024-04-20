@@ -30,7 +30,7 @@ export class CommonService {
     //const result = await this.
     let orderinfo;
     try {
-      orderinfo = await axios.post(process.env.ENT_URL, {
+      orderinfo = await axios.post('http://localhost:4000/common', {
         site_code: siteCode,
       });
 

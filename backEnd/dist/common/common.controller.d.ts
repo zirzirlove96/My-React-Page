@@ -5,6 +5,4 @@ export declare class CommonController {
     constructor(commonService: CommonService);
     getAccount(ampCode: string): Promise<LoginSite[]>;
     getOrderInfo(siteCode: string): Promise<string>;
-    getPreConstructList(siteCode: string): Promise<string>;
-    getAssumeList(siteCode: string): Promise<string>;
 }

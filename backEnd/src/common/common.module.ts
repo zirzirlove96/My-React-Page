@@ -7,6 +7,7 @@ import { LoginSiteRespository } from 'src/respository/LoginSiteRepository';
 import { LoginSite } from 'src/entities/login_site.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SoapModule } from 'nestjs-soap';
+import { TakeOrderSpecial } from 'src/entities/take_order_special';
 
 @Module({
   controllers: [CommonController],
@@ -35,7 +36,18 @@ import { SoapModule } from 'nestjs-soap';
       entities: [LoginSite],
       synchronize: false,
     }),
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: process.env.DB_HOSTNAME,
+      port: 3306,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: 'study2',
+      entities: [TakeOrderSpecial],
+      synchronize: false,
+    }),
     LoginSite,
+    TakeOrderSpecial,
   ],
 })
 export class CommonModule {}
