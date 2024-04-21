@@ -1,13 +1,14 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('takeorderspecial')
+//다중연동할 때 db명이랑 table 명칭 정의하기
+@Entity({ database: 'study2', name: 'takeorderspecial' })
 export class TakeOrderSpecial {
   @PrimaryGeneratedColumn()
-  programcode: string;
+  ampCode: string;
 
   @Column()
   siteCode: string;
 
   @Column()
-  spcialcode: string;
+  specialCode: string;
 }

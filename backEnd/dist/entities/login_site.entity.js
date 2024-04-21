@@ -31,6 +31,6 @@ __decorate([
     __metadata("design:type", Number)
 ], LoginSite.prototype, "number", void 0);
 exports.LoginSite = LoginSite = __decorate([
-    (0, typeorm_1.Entity)('login_site')
+    (0, typeorm_1.Entity)({ database: 'study', name: 'login_site' })
 ], LoginSite);
 //# sourceMappingURL=login_site.entity.js.map

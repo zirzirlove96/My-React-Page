@@ -8,21 +8,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CommonService = void 0;
+const TakeOrderSpecialRepository_1 = require("./../respository/TakeOrderSpecialRepository");
 const typeorm_1 = require("typeorm");
 const common_1 = require("@nestjs/common");
-const typeorm_2 = require("@nestjs/typeorm");
-const login_site_entity_1 = require("../entities/login_site.entity");
+const LoginSiteRepository_1 = require("../respository/LoginSiteRepository");
 const axios_1 = require("axios");
 let CommonService = class CommonService {
-    constructor(loginsiteRepository) {
+    constructor(loginsiteRepository, takeOrderSpecialRepository, dataSource) {
         this.loginsiteRepository = loginsiteRepository;
+        this.takeOrderSpecialRepository = takeOrderSpecialRepository;
+        this.dataSource = dataSource;
     }
-    async getAccount({ ampCode }) {
+    async getAccount(ampCode) {
+        console.log('123123123');
         const result = await this.loginsiteRepository.find({
             select: {
                 siteCode: true,
@@ -46,11 +46,41 @@ let CommonService = class CommonService {
         }
         return orderinfo;
     }
+    async insertOrderSpecial(body) {
+        let result;
+        try {
+            return await this.takeOrderSpecialRepository.saveTakeOrderSpecial(body);
+        }
+        catch (e) {
+            console.error(e);
+        }
+        return result;
+    }
+    async getPreOrderSpecialList({ ampCode, siteCode }) {
+        let orderlist;
+        try {
+            orderlist = await this.takeOrderSpecialRepository.find({
+                select: {
+                    specialCode: true,
+                },
+                where: {
+                    siteCode: siteCode,
+                    ampCode: ampCode,
+                },
+            });
+            return orderlist;
+        }
+        catch (e) {
+            console.error(e);
+        }
+        return '123';
+    }
 };
 exports.CommonService = CommonService;
 exports.CommonService = CommonService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_2.InjectRepository)(login_site_entity_1.LoginSite)),
-    __metadata("design:paramtypes", [typeorm_1.Repository])
+    __metadata("design:paramtypes", [LoginSiteRepository_1.LoginSiteRespository,
+        TakeOrderSpecialRepository_1.TakeOrderSpecialRepository,
+        typeorm_1.DataSource])
 ], CommonService);
 //# sourceMappingURL=common.service.js.map

@@ -1,20 +1,21 @@
-import { Entity, EntityRepository, Repository } from 'typeorm';
+import { TakeOrderSpecialRepository } from './../respository/TakeOrderSpecialRepository';
+import { DataSource, Entity, EntityRepository, Repository } from 'typeorm';
 import { Injectable, Body } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LoginSite } from 'src/entities/login_site.entity';
 import { LoginSiteRespository } from 'src/respository/LoginSiteRepository';
 import axios from 'axios';
-import { SoapModuleOptionsFactoryType } from 'nestjs-soap';
 
 @Injectable()
 export class CommonService {
   constructor(
-    @InjectRepository(LoginSite)
-    private readonly loginsiteRepository: Repository<LoginSite>,
+    private readonly loginsiteRepository: LoginSiteRespository,
+    private readonly takeOrderSpecialRepository: TakeOrderSpecialRepository,
+    private dataSource: DataSource,
   ) {}
-  //@Injectable()
 
-  async getAccount({ ampCode }): Promise<LoginSite[]> {
+  async getAccount(ampCode: string): Promise<LoginSite[]> {
+    console.log('123123123');
     const result = await this.loginsiteRepository.find({
       select: {
         siteCode: true,
@@ -27,7 +28,6 @@ export class CommonService {
   }
 
   async getOrderInfo({ siteCode }): Promise<string> {
-    //const result = await this.
     let orderinfo;
     try {
       orderinfo = await axios.post('http://localhost:4000/common', {
@@ -40,5 +40,36 @@ export class CommonService {
     }
     //return '판매가-price || 상품명-model';
     return orderinfo;
+  }
+
+  async insertOrderSpecial(body): Promise<string> {
+    let result;
+    try {
+      return await this.takeOrderSpecialRepository.saveTakeOrderSpecial(body);
+    } catch (e) {
+      console.error(e);
+    }
+
+    return result;
+  }
+
+  async getPreOrderSpecialList({ ampCode, siteCode }): Promise<string> {
+    let orderlist;
+    try {
+      orderlist = await this.takeOrderSpecialRepository.find({
+        select: {
+          specialCode: true,
+        },
+        where: {
+          siteCode: siteCode,
+          ampCode: ampCode,
+        },
+      });
+
+      return orderlist;
+    } catch (e) {
+      console.error(e);
+    }
+    return '123';
   }
 }

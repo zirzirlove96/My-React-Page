@@ -1,5 +1,5 @@
 export declare class TakeOrderSpecial {
-    programcode: string;
+    ampCode: string;
     siteCode: string;
-    spcialcode: string;
+    specialCode: string;
 }

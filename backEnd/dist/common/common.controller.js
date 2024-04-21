@@ -15,15 +15,27 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CommonController = void 0;
 const common_1 = require("@nestjs/common");
 const common_service_1 = require("./common.service");
+const take_order_special_1 = require("../entities/take_order_special");
 let CommonController = class CommonController {
     constructor(commonService) {
         this.commonService = commonService;
     }
     async getAccount(ampCode) {
-        return await this.commonService.getAccount({ ampCode });
+        return await this.commonService.getAccount(ampCode);
     }
     async getOrderInfo(siteCode) {
         return await this.commonService.getOrderInfo({ siteCode });
+    }
+    async insertOrderSpecial(body) {
+        return await this.commonService.insertOrderSpecial(body);
+    }
+    async getPreOrderSpecialList(ampCode, siteCode) {
+        console.log(ampCode);
+        console.log(siteCode);
+        return await this.commonService.getPreOrderSpecialList({
+            ampCode,
+            siteCode,
+        });
     }
 };
 exports.CommonController = CommonController;
@@ -35,12 +47,27 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], CommonController.prototype, "getAccount", null);
 __decorate([
-    (0, common_1.Get)(':siteCode'),
-    __param(0, (0, common_1.Param)('siteCode')),
+    (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)('siteCode')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], CommonController.prototype, "getOrderInfo", null);
+__decorate([
+    (0, common_1.Post)('save'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [take_order_special_1.TakeOrderSpecial]),
+    __metadata("design:returntype", Promise)
+], CommonController.prototype, "insertOrderSpecial", null);
+__decorate([
+    (0, common_1.Get)('list'),
+    __param(0, (0, common_1.Query)('ampCode')),
+    __param(1, (0, common_1.Query)('siteCode')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], CommonController.prototype, "getPreOrderSpecialList", null);
 exports.CommonController = CommonController = __decorate([
     (0, common_1.Controller)('common'),
     __metadata("design:paramtypes", [common_service_1.CommonService])

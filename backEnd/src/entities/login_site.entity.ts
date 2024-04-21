@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('login_site')
+@Entity({ database: 'study', name: 'login_site' })
 export class LoginSite {
   @Column()
   ampCode: string;

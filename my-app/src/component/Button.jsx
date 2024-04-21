@@ -15,10 +15,10 @@ const Button = (props) => {
 
   const onClick = (e) => {
     const target_name = e.target.value;
-    if (target_name == "DEL") {
+    if (target_name === "DEL") {
       setState("");
       setState2([]);
-    } else if (target_name == "AC") {
+    } else if (target_name === "AC") {
       let str = String(state).slice(0, -1);
       setState((prev) => str);
     } else {
@@ -38,9 +38,7 @@ const Button = (props) => {
   };
 
   useEffect(() => {
-    if (state != "") {
-      props.onClick(state);
-    }
+    props.onClick(state);
   }, [state]);
   //<CommonFunction ref={childRef} />
   return (

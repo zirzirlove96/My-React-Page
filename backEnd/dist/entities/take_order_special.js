@@ -17,7 +17,7 @@ exports.TakeOrderSpecial = TakeOrderSpecial;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", String)
-], TakeOrderSpecial.prototype, "programcode", void 0);
+], TakeOrderSpecial.prototype, "ampCode", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
@@ -25,8 +25,8 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], TakeOrderSpecial.prototype, "spcialcode", void 0);
+], TakeOrderSpecial.prototype, "specialCode", void 0);
 exports.TakeOrderSpecial = TakeOrderSpecial = __decorate([
-    (0, typeorm_1.Entity)('takeorderspecial')
+    (0, typeorm_1.Entity)({ database: 'study2', name: 'takeorderspecial' })
 ], TakeOrderSpecial);
 //# sourceMappingURL=take_order_special.js.map

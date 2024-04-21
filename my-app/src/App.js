@@ -19,7 +19,7 @@ function App() {
   const [siteCode, setSiteCode] = useState([]);
 
   const [orderinfo, setOrderinfo] = useState();
-  const [orderinfo2, setOrderinfo2] = useState();
+  const [speialCodeList, setSpeialCodeList] = useState();
 
   //계정정보
   async function getUserInfo() {
@@ -27,12 +27,6 @@ function App() {
       const response = await axios.post("http://localhost:4000/common", {
         ampCode: "amp_engine",
       });
-
-      /*for (var i = 0; i < response.data.length; i++) {
-        //console.log(response.data[i].siteCode);
-        setSiteCode(response.data[i].siteCode);
-      }*/
-      console.log(response);
       setSiteCode(response.data);
 
       return response;
@@ -44,11 +38,26 @@ function App() {
   //특별처리 적용한 사항 리스트
   async function getSpecialEffectList() {
     try {
-      const response = await axios.post("http://localhost:4000/common/effect", {
-        ampCode: "amp_engine",
-        siteCode: code,
-      });
+      const response = await axios.get(
+        "http://localhost:4000/common/list?ampCode=amp_engine&siteCode=A077"
+      );
+      console.log(response.data);
+      setSpeialCodeList(response.data);
       return response;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  //특별처리 저장하기
+  async function insertOrderSpecial(ampCode, siteCode, specialCode) {
+    try {
+      //console.log(ampCode);
+      const response = await axios.post("http://localhost:4000/common/save", {
+        ampCode: ampCode,
+        siteCode: siteCode,
+        specialCode: specialCode,
+      });
     } catch (e) {
       console.error(e);
     }
@@ -56,6 +65,7 @@ function App() {
 
   useEffect(() => {
     getUserInfo(); //사이트 코드 가져오기
+
     //버튼에 넣어줄 주문 데이터
     /*const func1 = async function () {
       const response2 = await axios.get("localhost:4000/common?siteCode=");
@@ -69,20 +79,21 @@ function App() {
   }, []);
 
   useEffect(() => {
-    siteCode.map((value) => {
-      console.log(value.siteCode);
-    });
-  }, [siteCode]);
+    getSpecialEffectList(); //선택한 쇼핑몰코드에 적용된 특별처리 가져오기
+  }, [code]);
 
-  /*useEffect(() => {
-    
-  }, [code]);*/
+  useEffect(() => {
+    console.log(arr);
+  }, [arr]);
 
   const updateInput = (value) => {
+    console.log(value);
     setInput(value);
   };
   const onClick = (e) => {
     if (e.target.value === "save") {
+      //console.log("amp_engine", code, input);
+      insertOrderSpecial("amp_engine", code, input);
       setArr((currentArray) => [input, ...currentArray]);
     }
   };
@@ -97,11 +108,11 @@ function App() {
           <select onChange={siteCodeChange}>
             <option>사이트코드</option>
 
-            {/*siteCode == ""
+            {siteCode == ""
               ? "등록된 쇼핑몰이 없습니다."
               : siteCode.map((value) => (
                   <option value={value.siteCode}>{value.siteCode}</option>
-              ))*/}
+                ))}
           </select>
         </div>
         {code == "" ? (
@@ -112,7 +123,13 @@ function App() {
               <details>
                 <summary>{code} 쇼핑몰에 적용된 특별처리 내역</summary>
                 <ul>
-                  <li>특별처리 내ㅑ용...</li>
+                  {speialCodeList == ""
+                    ? "적용된 특별처리가 없습니다"
+                    : speialCodeList.map((list) =>
+                        list.specialCode
+                          .split("\n")
+                          .map((list2) => <li>{list2}</li>)
+                      )}
                 </ul>
               </details>
             </div>
@@ -120,7 +137,7 @@ function App() {
               <details>
                 <summary>계산기식 특별처리</summary>
                 <div className={style.div}>
-                  <input type="text" readOnly value={input}></input>
+                  <input type="text" value={input}></input>
                   <DIV2 columns="8">
                     <Button
                       style={style.button}
@@ -132,9 +149,6 @@ function App() {
                   <SAVEBUTTON onClick={onClick} value="save">
                     save
                   </SAVEBUTTON>
-                  <ul>
-                    {arr == "" ? "" : arr.map((value) => <li>{value}</li>)}
-                  </ul>
                 </div>
               </details>
             </div>

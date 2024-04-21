@@ -11,23 +11,26 @@ const common_service_1 = require("./common.service");
 const common_1 = require("@nestjs/common");
 const common_controller_1 = require("./common.controller");
 const typeorm_1 = require("@nestjs/typeorm");
+const LoginSiteRepository_1 = require("../respository/LoginSiteRepository");
 const login_site_entity_1 = require("../entities/login_site.entity");
 const config_1 = require("@nestjs/config");
 const take_order_special_1 = require("../entities/take_order_special");
+const TakeOrderSpecialRepository_1 = require("../respository/TakeOrderSpecialRepository");
 let CommonModule = class CommonModule {
 };
 exports.CommonModule = CommonModule;
 exports.CommonModule = CommonModule = __decorate([
     (0, common_1.Module)({
         controllers: [common_controller_1.CommonController],
-        providers: [common_service_1.CommonService],
+        providers: [common_service_1.CommonService, TakeOrderSpecialRepository_1.TakeOrderSpecialRepository, LoginSiteRepository_1.LoginSiteRespository],
         imports: [
             config_1.ConfigModule.forRoot({
                 envFilePath: '.env',
                 isGlobal: true,
             }),
-            typeorm_1.TypeOrmModule.forFeature([login_site_entity_1.LoginSite]),
+            typeorm_1.TypeOrmModule.forFeature([login_site_entity_1.LoginSite, take_order_special_1.TakeOrderSpecial]),
             typeorm_1.TypeOrmModule.forRoot({
+                autoLoadEntities: true,
                 type: 'mysql',
                 host: process.env.DB_HOSTNAME,
                 port: 3306,
@@ -37,7 +40,10 @@ exports.CommonModule = CommonModule = __decorate([
                 entities: [login_site_entity_1.LoginSite],
                 synchronize: false,
             }),
+            login_site_entity_1.LoginSite,
             typeorm_1.TypeOrmModule.forRoot({
+                autoLoadEntities: true,
+                name: 'takeorderspecial',
                 type: 'mysql',
                 host: process.env.DB_HOSTNAME,
                 port: 3306,
@@ -47,7 +53,6 @@ exports.CommonModule = CommonModule = __decorate([
                 entities: [take_order_special_1.TakeOrderSpecial],
                 synchronize: false,
             }),
-            login_site_entity_1.LoginSite,
             take_order_special_1.TakeOrderSpecial,
         ],
     })
