@@ -16,4 +16,5 @@ export declare class CommonService {
         ampCode: any;
         siteCode: any;
     }): Promise<string>;
+    saveTakeOrderSpecial(body: any): Promise<string>;
 }

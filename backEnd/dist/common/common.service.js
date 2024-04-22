@@ -15,6 +15,7 @@ const typeorm_1 = require("typeorm");
 const common_1 = require("@nestjs/common");
 const LoginSiteRepository_1 = require("../respository/LoginSiteRepository");
 const axios_1 = require("axios");
+const take_order_special_1 = require("../entities/take_order_special");
 let CommonService = class CommonService {
     constructor(loginsiteRepository, takeOrderSpecialRepository, dataSource) {
         this.loginsiteRepository = loginsiteRepository;
@@ -49,7 +50,7 @@ let CommonService = class CommonService {
     async insertOrderSpecial(body) {
         let result;
         try {
-            return await this.takeOrderSpecialRepository.saveTakeOrderSpecial(body);
+            return await this.saveTakeOrderSpecial(body);
         }
         catch (e) {
             console.error(e);
@@ -74,6 +75,42 @@ let CommonService = class CommonService {
             console.error(e);
         }
         return '123';
+    }
+    async saveTakeOrderSpecial(body) {
+        const queryRunner = this.dataSource.createQueryRunner();
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+        let result2;
+        try {
+            const order = new take_order_special_1.TakeOrderSpecial();
+            order.ampCode = body.ampCode;
+            order.siteCode = body.siteCode;
+            order.specialCode = body.specialCode;
+            const result = await this.takeOrderSpecialRepository.find({
+                select: {
+                    specialCode: true,
+                },
+                where: {
+                    ampCode: body.ampCode,
+                    siteCode: body.siteCode,
+                },
+            });
+            if (result.length > 0) {
+                order.specialCode = result[0].specialCode + '\n' + order.specialCode;
+            }
+            result2 = await queryRunner.manager.upsert(take_order_special_1.TakeOrderSpecial, order, []);
+            console.log('특별처리 끝');
+            console.log(result2);
+            await queryRunner.commitTransaction();
+        }
+        catch (e) {
+            await queryRunner.rollbackTransaction();
+            console.error(e);
+        }
+        finally {
+            await queryRunner.release();
+        }
+        return 'success';
     }
 };
 exports.CommonService = CommonService;
