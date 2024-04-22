@@ -9,12 +9,14 @@ import { TakeOrderSpecial } from 'src/entities/take_order_special';
 export class CommonController {
   constructor(private commonService: CommonService) {}
   //환경설정에 저장된 쇼핑몰 리스트 전체 조회
+  //필요 없는 정보들을 빼깅 위해 DTO 설정하기!!!!
   @Post()
   async getAccount(@Body('ampCode') ampCode: string): Promise<LoginSite[]> {
     return await this.commonService.getAccount(ampCode);
   }
 
   //사이트에서 제공하는 주문 데이터 가져오기(매칭된 데이터)
+  //매칭되지 않은 필드 및 중복기준에 사용되는 필드 빼고 가져오기 위해 DTO 설정하기!!!!
   @Get()
   async getOrderInfo(@Query('siteCode') siteCode: string): Promise<string> {
     return await this.commonService.getOrderInfo({ siteCode });
