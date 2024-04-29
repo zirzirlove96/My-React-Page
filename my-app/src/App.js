@@ -156,12 +156,20 @@ function App() {
               <details>
                 <summary>선택형 특별처리</summary>
                 <Select siteCode={code}></Select>
+                <br></br>
+                <SAVEBUTTON onClick={onClick} value="save">
+                  save
+                </SAVEBUTTON>
               </details>
             </div>
             <div>
               <details>
                 <summary>조건문 특별처리</summary>
                 <ResultInput siteCode={code}></ResultInput>
+                <br></br>
+                <SAVEBUTTON onClick={onClick} value="save">
+                  save
+                </SAVEBUTTON>
               </details>
             </div>
           </>
