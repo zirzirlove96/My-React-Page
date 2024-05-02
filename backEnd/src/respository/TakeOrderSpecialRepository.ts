@@ -5,10 +5,12 @@ import { DataSource, EntityRepository, Repository } from 'typeorm';
 
 @Injectable()
 export class TakeOrderSpecialRepository extends Repository<TakeOrderSpecial> {
-  constructor(private dataSource: DataSource) {
+  /*constructor(private dataSource: DataSource) {
     super(TakeOrderSpecial, dataSource.createEntityManager());
-  }
-  async saveTakeOrderSpecial(body) {
+  }*/
+
+
+  /*async saveTakeOrderSpecial(body) {
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
@@ -47,5 +49,5 @@ export class TakeOrderSpecialRepository extends Repository<TakeOrderSpecial> {
     }
 
     return 'success';
-  }
+  }*/
 }

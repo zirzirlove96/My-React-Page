@@ -6,6 +6,7 @@ import { LoginSite } from 'src/entities/login_site.entity';
 import { LoginSiteRespository } from 'src/respository/LoginSiteRepository';
 import axios from 'axios';
 import { TakeOrderSpecial } from 'src/entities/take_order_special';
+import { OrderCmtRepositiory } from 'src/respository/OrderCmtRepository';
 
 @Injectable()
 export class CommonService {
@@ -15,6 +16,7 @@ export class CommonService {
     //private readonly takeOrderSpecialRepository: Repository<TakeOrderSpecial> => 해당 소스는 service에서 DB와 상호작용을 직접적으로 하는 소스
     //Repository를 생성하므로써 Provider에 해당 repository를 선언하여 사용하면 된다.
     private readonly takeOrderSpecialRepository: TakeOrderSpecialRepository,
+    private readonly orderCmtRepository: OrderCmtRepositiory,
     private dataSource: DataSource,
   ) {}
 
@@ -55,6 +57,16 @@ export class CommonService {
     }
 
     return result;
+  }
+
+  //로그 쌓기
+  async insertLogOrderSpecial(body): Promise<string> {
+    let result;
+    try {
+      return await this.orderCmtRepository.save(body);
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   async getPreOrderSpecialList({ ampCode, siteCode }): Promise<string> {

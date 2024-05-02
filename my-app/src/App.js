@@ -58,6 +58,14 @@ function App() {
         siteCode: siteCode,
         specialCode: specialCode,
       });
+      const response2 = await axios.post(
+        "http://localhost:4000/common/saveLog",
+        {
+          wdate: Date,
+          siteCode: siteCode,
+          logProcess: specialCode,
+        }
+      );
     } catch (e) {
       console.error(e);
     }

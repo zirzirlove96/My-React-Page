@@ -9,6 +9,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SoapModule } from 'nestjs-soap';
 import { TakeOrderSpecial } from 'src/entities/take_order_special';
 import { TakeOrderSpecialRepository } from 'src/respository/TakeOrderSpecialRepository';
+import { OrderCmt } from 'src/entities/order_cmt';
 
 @Module({
   controllers: [CommonController],
@@ -16,14 +17,6 @@ import { TakeOrderSpecialRepository } from 'src/respository/TakeOrderSpecialRepo
   //repository : DB접근(쓰거나, 읽거나)
   providers: [CommonService, TakeOrderSpecialRepository, LoginSiteRespository],
   imports: [
-    /*SoapModule.registerAsync({
-      clientName: 'EASYLAYW',
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        uri: configService.get('http://amp.playauto.co.kr/api/ent/GetOrderTitle'),
-      }),
-    }),*/
     ConfigModule.forRoot({
       envFilePath: '.env',
       isGlobal: true,
@@ -55,6 +48,7 @@ import { TakeOrderSpecialRepository } from 'src/respository/TakeOrderSpecialRepo
       synchronize: false,
     }),
     TakeOrderSpecial,
+    OrderCmt,
   ],
 })
 export class CommonModule {}

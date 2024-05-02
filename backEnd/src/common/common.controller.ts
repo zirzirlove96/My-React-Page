@@ -4,6 +4,7 @@ import { LoginSite } from 'src/entities/login_site.entity';
 import { get } from 'http';
 import { SoapModuleOptionsFactoryType } from 'nestjs-soap';
 import { TakeOrderSpecial } from 'src/entities/take_order_special';
+import { InsertOrderLog } from 'src/dto/InserOrderLog';
 
 @Controller('common')
 export class CommonController {
@@ -26,6 +27,12 @@ export class CommonController {
   @Post('save')
   async insertOrderSpecial(@Body() body: TakeOrderSpecial): Promise<string> {
     return await this.commonService.insertOrderSpecial(body);
+  }
+
+  //특별처리 로그저장
+  @Post('saveLog')
+  async insertLogOrderSpecial(@Body() body: InsertOrderLog): Promise<string> {
+    return await this.commonService.insertLogOrderSpecial(body);
   }
   //my-cate처럼 업체 DB에 특별처리 테이블 생성
   //필드 : 사이트코드, 특별처리
