@@ -9,24 +9,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TakeOrderSpecial = void 0;
+exports.AutoOrder = void 0;
 const typeorm_1 = require("typeorm");
-let TakeOrderSpecial = class TakeOrderSpecial {
+let AutoOrder = class AutoOrder {
 };
-exports.TakeOrderSpecial = TakeOrderSpecial;
+exports.AutoOrder = AutoOrder;
 __decorate([
+    (0, typeorm_1.Column)(),
     (0, typeorm_1.PrimaryGeneratedColumn)(),
+    __metadata("design:type", String)
+], AutoOrder.prototype, "number", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], AutoOrder.prototype, "code", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], AutoOrder.prototype, "name", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
-], TakeOrderSpecial.prototype, "number", void 0);
+], AutoOrder.prototype, "data_normal", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], TakeOrderSpecial.prototype, "siteCode", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], TakeOrderSpecial.prototype, "specialCode", void 0);
-exports.TakeOrderSpecial = TakeOrderSpecial = __decorate([
-    (0, typeorm_1.Entity)({ database: 'study2', name: 'takeorderspecial' })
-], TakeOrderSpecial);
-//# sourceMappingURL=take_order_special.js.map
+    __metadata("design:type", Number)
+], AutoOrder.prototype, "overlap_mode", void 0);
+exports.AutoOrder = AutoOrder = __decorate([
+    (0, typeorm_1.Entity)({ database: 'study', name: 'auto_order' })
+], AutoOrder);
+//# sourceMappingURL=auto_order.js.map

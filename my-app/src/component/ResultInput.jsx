@@ -7,10 +7,11 @@ const ResultInput = () => {
     <>
       <div>
         <select>
-          <option>배송방법</option>
+          <option>배송비</option>
         </select>
+        가(이)
         <select>
-          <option>기타</option>
+          <option>0원</option>
         </select>
         (이)라면
         <select>

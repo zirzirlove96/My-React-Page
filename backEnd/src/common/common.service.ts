@@ -7,6 +7,7 @@ import { LoginSiteRespository } from 'src/respository/LoginSiteRepository';
 import axios from 'axios';
 import { TakeOrderSpecial } from 'src/entities/take_order_special';
 import { OrderCmtRepositiory } from 'src/respository/OrderCmtRepository';
+import { AutoOrderRepository } from 'src/respository/AutoOrderRepository';
 
 @Injectable()
 export class CommonService {
@@ -17,11 +18,11 @@ export class CommonService {
     //Repository를 생성하므로써 Provider에 해당 repository를 선언하여 사용하면 된다.
     private readonly takeOrderSpecialRepository: TakeOrderSpecialRepository,
     private readonly orderCmtRepository: OrderCmtRepositiory,
+    private readonly autoOrderRepository: AutoOrderRepository,
     private dataSource: DataSource,
   ) {}
 
   async getAccount(ampCode: string): Promise<LoginSite[]> {
-    console.log('123123123');
     const result = await this.loginsiteRepository.find({
       select: {
         siteCode: true,
@@ -33,12 +34,20 @@ export class CommonService {
     return result;
   }
 
-  async getOrderInfo({ siteCode }): Promise<string> {
+  async getOrderInfo(siteCode: string): Promise<string> {
     let orderinfo;
     try {
-      orderinfo = await axios.post('http://localhost:4000/common', {
-        site_code: siteCode,
-      });
+      /*orderinfo = await this.autoOrderRepository.find({
+        select: {
+          name: true,
+          overlap_mode: true,
+          data_normal: true,
+        },
+        where: {
+          code: siteCode,
+        },
+      });*/
+      orderinfo = await this.autoOrderRepository.find();
 
       console.log(orderinfo);
     } catch (e) {
@@ -69,24 +78,19 @@ export class CommonService {
     }
   }
 
-  async getPreOrderSpecialList({ ampCode, siteCode }): Promise<string> {
+  async getPreOrderSpecialList(): Promise<string> {
     let orderlist;
     try {
-      orderlist = await this.takeOrderSpecialRepository.find({
-        select: {
-          specialCode: true,
-        },
+      /*orderlist = await this.takeOrderSpecialRepository.find({
         where: {
           siteCode: siteCode,
-          ampCode: ampCode,
         },
-      });
-
-      return orderlist;
+      });*/
+      orderlist = await this.takeOrderSpecialRepository.find();
     } catch (e) {
       console.error(e);
     }
-    return '123';
+    return orderlist;
   }
 
   async saveTakeOrderSpecial(body) {
@@ -96,7 +100,7 @@ export class CommonService {
     let result2;
     try {
       const order = new TakeOrderSpecial();
-      order.ampCode = body.ampCode;
+      order.number = body.number;
       order.siteCode = body.siteCode;
       order.specialCode = body.specialCode;
 
@@ -105,7 +109,6 @@ export class CommonService {
           specialCode: true,
         },
         where: {
-          ampCode: body.ampCode,
           siteCode: body.siteCode,
         },
       });

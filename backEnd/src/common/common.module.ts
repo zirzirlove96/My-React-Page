@@ -10,18 +10,36 @@ import { SoapModule } from 'nestjs-soap';
 import { TakeOrderSpecial } from 'src/entities/take_order_special';
 import { TakeOrderSpecialRepository } from 'src/respository/TakeOrderSpecialRepository';
 import { OrderCmt } from 'src/entities/order_cmt';
+import { AutoOrder } from 'src/entities/auto_order';
+import { AutoOrderMisc } from 'src/entities/auto_order_misc';
+import { AutoOrderRepository } from 'src/respository/AutoOrderRepository';
+import { AutoOrderMiscRepository } from 'src/respository/AutoOrderMiscRepository';
+import { OrderCmtRepositiory } from 'src/respository/OrderCmtRepository';
 
 @Module({
   controllers: [CommonController],
   //repository를 비즈니스 로직으로 만들어서 providers에 추가
   //repository : DB접근(쓰거나, 읽거나)
-  providers: [CommonService, TakeOrderSpecialRepository, LoginSiteRespository],
+  providers: [
+    CommonService,
+    TakeOrderSpecialRepository,
+    LoginSiteRespository,
+    OrderCmtRepositiory,
+    AutoOrderRepository,
+    AutoOrderMiscRepository,
+  ],
   imports: [
     ConfigModule.forRoot({
       envFilePath: '.env',
       isGlobal: true,
     }),
-    TypeOrmModule.forFeature([LoginSite, TakeOrderSpecial]),
+    TypeOrmModule.forFeature([
+      LoginSite,
+      TakeOrderSpecial,
+      OrderCmt,
+      AutoOrder,
+      AutoOrderMisc,
+    ]),
     TypeOrmModule.forRoot({
       autoLoadEntities: true,
       type: 'mysql',
@@ -30,10 +48,10 @@ import { OrderCmt } from 'src/entities/order_cmt';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: 'study',
-      entities: [LoginSite],
+      entities: [LoginSite, AutoOrder, AutoOrderMisc],
       synchronize: false,
     }),
-    LoginSite,
+
     //다중 연동할때 name 정하기
     TypeOrmModule.forRoot({
       autoLoadEntities: true,
@@ -47,8 +65,6 @@ import { OrderCmt } from 'src/entities/order_cmt';
       entities: [TakeOrderSpecial],
       synchronize: false,
     }),
-    TakeOrderSpecial,
-    OrderCmt,
   ],
 })
 export class CommonModule {}

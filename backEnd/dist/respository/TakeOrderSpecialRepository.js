@@ -18,42 +18,6 @@ let TakeOrderSpecialRepository = class TakeOrderSpecialRepository extends typeor
         super(take_order_special_1.TakeOrderSpecial, dataSource.createEntityManager());
         this.dataSource = dataSource;
     }
-    async saveTakeOrderSpecial(body) {
-        const queryRunner = this.dataSource.createQueryRunner();
-        await queryRunner.connect();
-        await queryRunner.startTransaction();
-        let result2;
-        try {
-            const order = new take_order_special_1.TakeOrderSpecial();
-            order.ampCode = body.ampCode;
-            order.siteCode = body.siteCode;
-            order.specialCode = body.specialCode;
-            const result = await this.find({
-                select: {
-                    specialCode: true,
-                },
-                where: {
-                    ampCode: body.ampCode,
-                    siteCode: body.siteCode,
-                },
-            });
-            if (result.length > 0) {
-                order.specialCode = result[0].specialCode + '\n' + order.specialCode;
-            }
-            result2 = await queryRunner.manager.upsert(take_order_special_1.TakeOrderSpecial, order, []);
-            console.log('특별처리 끝');
-            console.log(result2);
-            await queryRunner.commitTransaction();
-        }
-        catch (e) {
-            await queryRunner.rollbackTransaction();
-            console.error(e);
-        }
-        finally {
-            await queryRunner.release();
-        }
-        return 'success';
-    }
 };
 exports.TakeOrderSpecialRepository = TakeOrderSpecialRepository;
 exports.TakeOrderSpecialRepository = TakeOrderSpecialRepository = __decorate([

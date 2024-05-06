@@ -3,5 +3,4 @@ import { DataSource, Repository } from 'typeorm';
 export declare class TakeOrderSpecialRepository extends Repository<TakeOrderSpecial> {
     private dataSource;
     constructor(dataSource: DataSource);
-    saveTakeOrderSpecial(body: any): Promise<string>;
 }

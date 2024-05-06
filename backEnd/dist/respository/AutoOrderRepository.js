@@ -9,24 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TakeOrderSpecial = void 0;
+exports.AutoOrderRepository = void 0;
+const common_1 = require("@nestjs/common");
+const auto_order_1 = require("../entities/auto_order");
 const typeorm_1 = require("typeorm");
-let TakeOrderSpecial = class TakeOrderSpecial {
+let AutoOrderRepository = class AutoOrderRepository extends typeorm_1.Repository {
+    constructor(dataSource) {
+        super(auto_order_1.AutoOrder, dataSource.createEntityManager());
+        this.dataSource = dataSource;
+    }
 };
-exports.TakeOrderSpecial = TakeOrderSpecial;
-__decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)(),
-    __metadata("design:type", Number)
-], TakeOrderSpecial.prototype, "number", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], TakeOrderSpecial.prototype, "siteCode", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], TakeOrderSpecial.prototype, "specialCode", void 0);
-exports.TakeOrderSpecial = TakeOrderSpecial = __decorate([
-    (0, typeorm_1.Entity)({ database: 'study2', name: 'takeorderspecial' })
-], TakeOrderSpecial);
-//# sourceMappingURL=take_order_special.js.map
+exports.AutoOrderRepository = AutoOrderRepository;
+exports.AutoOrderRepository = AutoOrderRepository = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [typeorm_1.DataSource])
+], AutoOrderRepository);
+//# sourceMappingURL=AutoOrderRepository.js.map

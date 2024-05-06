@@ -16,19 +16,38 @@ const login_site_entity_1 = require("../entities/login_site.entity");
 const config_1 = require("@nestjs/config");
 const take_order_special_1 = require("../entities/take_order_special");
 const TakeOrderSpecialRepository_1 = require("../respository/TakeOrderSpecialRepository");
+const order_cmt_1 = require("../entities/order_cmt");
+const auto_order_1 = require("../entities/auto_order");
+const auto_order_misc_1 = require("../entities/auto_order_misc");
+const AutoOrderRepository_1 = require("../respository/AutoOrderRepository");
+const AutoOrderMiscRepository_1 = require("../respository/AutoOrderMiscRepository");
+const OrderCmtRepository_1 = require("../respository/OrderCmtRepository");
 let CommonModule = class CommonModule {
 };
 exports.CommonModule = CommonModule;
 exports.CommonModule = CommonModule = __decorate([
     (0, common_1.Module)({
         controllers: [common_controller_1.CommonController],
-        providers: [common_service_1.CommonService, TakeOrderSpecialRepository_1.TakeOrderSpecialRepository, LoginSiteRepository_1.LoginSiteRespository],
+        providers: [
+            common_service_1.CommonService,
+            TakeOrderSpecialRepository_1.TakeOrderSpecialRepository,
+            LoginSiteRepository_1.LoginSiteRespository,
+            OrderCmtRepository_1.OrderCmtRepositiory,
+            AutoOrderRepository_1.AutoOrderRepository,
+            AutoOrderMiscRepository_1.AutoOrderMiscRepository,
+        ],
         imports: [
             config_1.ConfigModule.forRoot({
                 envFilePath: '.env',
                 isGlobal: true,
             }),
-            typeorm_1.TypeOrmModule.forFeature([login_site_entity_1.LoginSite, take_order_special_1.TakeOrderSpecial]),
+            typeorm_1.TypeOrmModule.forFeature([
+                login_site_entity_1.LoginSite,
+                take_order_special_1.TakeOrderSpecial,
+                order_cmt_1.OrderCmt,
+                auto_order_1.AutoOrder,
+                auto_order_misc_1.AutoOrderMisc,
+            ]),
             typeorm_1.TypeOrmModule.forRoot({
                 autoLoadEntities: true,
                 type: 'mysql',
@@ -37,10 +56,9 @@ exports.CommonModule = CommonModule = __decorate([
                 username: process.env.DB_USERNAME,
                 password: process.env.DB_PASSWORD,
                 database: 'study',
-                entities: [login_site_entity_1.LoginSite],
+                entities: [login_site_entity_1.LoginSite, auto_order_1.AutoOrder, auto_order_misc_1.AutoOrderMisc],
                 synchronize: false,
             }),
-            login_site_entity_1.LoginSite,
             typeorm_1.TypeOrmModule.forRoot({
                 autoLoadEntities: true,
                 name: 'takeorderspecial',
@@ -53,7 +71,6 @@ exports.CommonModule = CommonModule = __decorate([
                 entities: [take_order_special_1.TakeOrderSpecial],
                 synchronize: false,
             }),
-            take_order_special_1.TakeOrderSpecial,
         ],
     })
 ], CommonModule);

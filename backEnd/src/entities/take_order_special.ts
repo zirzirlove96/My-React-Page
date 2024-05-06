@@ -4,7 +4,7 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 @Entity({ database: 'study2', name: 'takeorderspecial' })
 export class TakeOrderSpecial {
   @PrimaryGeneratedColumn()
-  ampCode: string;
+  number: number;
 
   @Column()
   siteCode: string;

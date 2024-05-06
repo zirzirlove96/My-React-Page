@@ -9,24 +9,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TakeOrderSpecial = void 0;
-const typeorm_1 = require("typeorm");
-let TakeOrderSpecial = class TakeOrderSpecial {
-};
-exports.TakeOrderSpecial = TakeOrderSpecial;
+exports.InsertOrderLog = void 0;
+const class_validator_1 = require("class-validator");
+class InsertOrderLog {
+}
+exports.InsertOrderLog = InsertOrderLog;
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)(),
-    __metadata("design:type", Number)
-], TakeOrderSpecial.prototype, "number", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], TakeOrderSpecial.prototype, "siteCode", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], TakeOrderSpecial.prototype, "specialCode", void 0);
-exports.TakeOrderSpecial = TakeOrderSpecial = __decorate([
-    (0, typeorm_1.Entity)({ database: 'study2', name: 'takeorderspecial' })
-], TakeOrderSpecial);
-//# sourceMappingURL=take_order_special.js.map
+], InsertOrderLog.prototype, "ampCode", void 0);
+//# sourceMappingURL=InserOrderLog.js.map

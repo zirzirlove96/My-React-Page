@@ -2,9 +2,9 @@ import { useEffect, useImperativeHandle, useState } from "react";
 import style from "../src/style/main.module.css";
 import Button from "./component/Button";
 import styled from "styled-components";
-import Select from "./component/Select";
 import ResultInput from "./component/ResultInput";
 import axios from "axios";
+import SelectToOption from "./component/SelectToOption";
 
 function App() {
   /*useImperativeHandle(ref, () => ({
@@ -21,6 +21,8 @@ function App() {
   const [orderinfo, setOrderinfo] = useState();
   const [speialCodeList, setSpeialCodeList] = useState();
 
+  const [selectTcode, setSelectTcode] = useState("");
+
   //계정정보
   async function getUserInfo() {
     try {
@@ -28,31 +30,36 @@ function App() {
         ampCode: "amp_engine",
       });
       setSiteCode(response.data);
-
-      return response;
     } catch (e) {
       console.error(e);
     }
   }
 
-  //특별처리 적용한 사항 리스트
+  //특별처리 적용한 사항 리스트(초기화 => 업체의 모든 특별처리 가져오기)
   async function getSpecialEffectList() {
     try {
-      const response = await axios.get(
-        "http://localhost:4000/common/list?ampCode=amp_engine&siteCode=A077"
-      );
-      console.log(response.data);
+      const response = await axios.get("http://localhost:4000/common/list");
       setSpeialCodeList(response.data);
-      return response;
     } catch (e) {
       console.error(e);
     }
   }
 
-  //특별처리 저장하기
+  //쇼핑몰코드의 중복기준 및 이름 및 기본 주문 정보들 가져오기
+  async function getAutoOrderInfo() {
+    try {
+      await console.log(siteCode);
+      const response = await axios.get(
+        "http://localhost:4000/common?siteCode=" + siteCode
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  //특별처리 및 특별처리 로그 저장하기
   async function insertOrderSpecial(ampCode, siteCode, specialCode) {
     try {
-      //console.log(ampCode);
       const response = await axios.post("http://localhost:4000/common/save", {
         ampCode: ampCode,
         siteCode: siteCode,
@@ -73,42 +80,33 @@ function App() {
 
   useEffect(() => {
     getUserInfo(); //사이트 코드 가져오기
-
-    //버튼에 넣어줄 주문 데이터
-    /*const func1 = async function () {
-      const response2 = await axios.get("localhost:4000/common?siteCode=");
-      setOrderinfo(response2);
-    };*/
-    //자주쓰는 특별처리 리스트
-    /*const func2 = async function () {
-      const response2 = await axios.get("localhost:4000/common?1");
-    }*/
-    //func1();
+    getAutoOrderInfo();
+    getSpecialEffectList(); //선택한 쇼핑몰코드에 적용된 특별처리 가져오기
   }, []);
 
-  useEffect(() => {
-    getSpecialEffectList(); //선택한 쇼핑몰코드에 적용된 특별처리 가져오기
-  }, [code]);
-
-  useEffect(() => {
-    console.log(arr);
-  }, [arr]);
-
   const updateInput = (value) => {
-    console.log(value);
     setInput(value);
   };
+
   const onClick = (e) => {
     if (e.target.value === "save") {
-      //console.log("amp_engine", code, input);
       insertOrderSpecial("amp_engine", code, input);
       setArr((currentArray) => [input, ...currentArray]);
     }
   };
+
+  //선택형 특별처리
+  const SelectMethod = (e) => {
+    setSelectTcode(e.target.value);
+  };
+
+  //쇼핑몰 변경될때
   const siteCodeChange = (e) => {
     const siteCode = e.target.value;
     setCode(siteCode);
+    //getAutoOrderInfo(siteCode); //사이트 코드의 이름 및 order 정보들
   };
+
   return (
     <>
       <div>
@@ -119,7 +117,7 @@ function App() {
             {siteCode == ""
               ? "등록된 쇼핑몰이 없습니다."
               : siteCode.map((value) => (
-                  <option value={value.siteCode}>{value.siteCode}</option>
+                  <option key={value.siteCode}>{value.siteCode}</option>
                 ))}
           </select>
         </div>
@@ -134,9 +132,11 @@ function App() {
                   {speialCodeList == ""
                     ? "적용된 특별처리가 없습니다"
                     : speialCodeList.map((list) =>
-                        list.specialCode
-                          .split("\n")
-                          .map((list2) => <li>{list2}</li>)
+                        list.siteCode === code
+                          ? list.specialCode
+                              .split("\n")
+                              .map((list2) => <li>{list2}</li>)
+                          : ""
                       )}
                 </ul>
               </details>
@@ -163,11 +163,17 @@ function App() {
             <div>
               <details>
                 <summary>선택형 특별처리</summary>
-                <Select siteCode={code}></Select>
+                <select onChange={SelectMethod}>
+                  <option>선택해주세요.</option>
+                  <option value={"deliv_method"}>배송방법</option>
+                  <option value={"order_info"}>주문자정보</option>
+                </select>
                 <br></br>
-                <SAVEBUTTON onClick={onClick} value="save">
-                  save
-                </SAVEBUTTON>
+                {selectTcode === "" ? (
+                  ""
+                ) : (
+                  <SelectToOption props={selectTcode}></SelectToOption>
+                )}
               </details>
             </div>
             <div>
@@ -186,11 +192,6 @@ function App() {
     </>
   );
 }
-
-/**      <hr />
-      <div>
-        <ResultInput></ResultInput>
-      </div> */
 
 const DIV2 = styled.div`
   display: grid;

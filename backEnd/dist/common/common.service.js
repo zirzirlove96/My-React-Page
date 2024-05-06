@@ -14,16 +14,18 @@ const TakeOrderSpecialRepository_1 = require("./../respository/TakeOrderSpecialR
 const typeorm_1 = require("typeorm");
 const common_1 = require("@nestjs/common");
 const LoginSiteRepository_1 = require("../respository/LoginSiteRepository");
-const axios_1 = require("axios");
 const take_order_special_1 = require("../entities/take_order_special");
+const OrderCmtRepository_1 = require("../respository/OrderCmtRepository");
+const AutoOrderRepository_1 = require("../respository/AutoOrderRepository");
 let CommonService = class CommonService {
-    constructor(loginsiteRepository, takeOrderSpecialRepository, dataSource) {
+    constructor(loginsiteRepository, takeOrderSpecialRepository, orderCmtRepository, autoOrderRepository, dataSource) {
         this.loginsiteRepository = loginsiteRepository;
         this.takeOrderSpecialRepository = takeOrderSpecialRepository;
+        this.orderCmtRepository = orderCmtRepository;
+        this.autoOrderRepository = autoOrderRepository;
         this.dataSource = dataSource;
     }
     async getAccount(ampCode) {
-        console.log('123123123');
         const result = await this.loginsiteRepository.find({
             select: {
                 siteCode: true,
@@ -34,12 +36,10 @@ let CommonService = class CommonService {
         });
         return result;
     }
-    async getOrderInfo({ siteCode }) {
+    async getOrderInfo(siteCode) {
         let orderinfo;
         try {
-            orderinfo = await axios_1.default.post('http://localhost:4000/common', {
-                site_code: siteCode,
-            });
+            orderinfo = await this.autoOrderRepository.find();
             console.log(orderinfo);
         }
         catch (e) {
@@ -57,24 +57,24 @@ let CommonService = class CommonService {
         }
         return result;
     }
-    async getPreOrderSpecialList({ ampCode, siteCode }) {
-        let orderlist;
+    async insertLogOrderSpecial(body) {
+        let result;
         try {
-            orderlist = await this.takeOrderSpecialRepository.find({
-                select: {
-                    specialCode: true,
-                },
-                where: {
-                    siteCode: siteCode,
-                    ampCode: ampCode,
-                },
-            });
-            return orderlist;
+            return await this.orderCmtRepository.save(body);
         }
         catch (e) {
             console.error(e);
         }
-        return '123';
+    }
+    async getPreOrderSpecialList() {
+        let orderlist;
+        try {
+            orderlist = await this.takeOrderSpecialRepository.find();
+        }
+        catch (e) {
+            console.error(e);
+        }
+        return orderlist;
     }
     async saveTakeOrderSpecial(body) {
         const queryRunner = this.dataSource.createQueryRunner();
@@ -83,7 +83,7 @@ let CommonService = class CommonService {
         let result2;
         try {
             const order = new take_order_special_1.TakeOrderSpecial();
-            order.ampCode = body.ampCode;
+            order.number = body.number;
             order.siteCode = body.siteCode;
             order.specialCode = body.specialCode;
             const result = await this.takeOrderSpecialRepository.find({
@@ -91,7 +91,6 @@ let CommonService = class CommonService {
                     specialCode: true,
                 },
                 where: {
-                    ampCode: body.ampCode,
                     siteCode: body.siteCode,
                 },
             });
@@ -118,6 +117,8 @@ exports.CommonService = CommonService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [LoginSiteRepository_1.LoginSiteRespository,
         TakeOrderSpecialRepository_1.TakeOrderSpecialRepository,
+        OrderCmtRepository_1.OrderCmtRepositiory,
+        AutoOrderRepository_1.AutoOrderRepository,
         typeorm_1.DataSource])
 ], CommonService);
 //# sourceMappingURL=common.service.js.map

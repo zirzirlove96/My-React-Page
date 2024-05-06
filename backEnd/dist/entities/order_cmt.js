@@ -9,24 +9,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TakeOrderSpecial = void 0;
+exports.OrderCmt = void 0;
 const typeorm_1 = require("typeorm");
-let TakeOrderSpecial = class TakeOrderSpecial {
+let OrderCmt = class OrderCmt {
 };
-exports.TakeOrderSpecial = TakeOrderSpecial;
+exports.OrderCmt = OrderCmt;
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Date)
+], OrderCmt.prototype, "wdate", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], OrderCmt.prototype, "siteCode", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], OrderCmt.prototype, "logProcess", void 0);
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], TakeOrderSpecial.prototype, "number", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], TakeOrderSpecial.prototype, "siteCode", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], TakeOrderSpecial.prototype, "specialCode", void 0);
-exports.TakeOrderSpecial = TakeOrderSpecial = __decorate([
-    (0, typeorm_1.Entity)({ database: 'study2', name: 'takeorderspecial' })
-], TakeOrderSpecial);
-//# sourceMappingURL=take_order_special.js.map
+], OrderCmt.prototype, "number", void 0);
+exports.OrderCmt = OrderCmt = __decorate([
+    (0, typeorm_1.Entity)({ database: 'study', name: 'login_site' })
+], OrderCmt);
+//# sourceMappingURL=order_cmt.js.map

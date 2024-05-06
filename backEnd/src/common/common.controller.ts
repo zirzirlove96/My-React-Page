@@ -20,7 +20,7 @@ export class CommonController {
   //매칭되지 않은 필드 및 중복기준에 사용되는 필드 빼고 가져오기 위해 DTO 설정하기!!!!
   @Get()
   async getOrderInfo(@Query('siteCode') siteCode: string): Promise<string> {
-    return await this.commonService.getOrderInfo({ siteCode });
+    return await this.commonService.getOrderInfo(siteCode);
   }
 
   //특별처리 저장
@@ -39,17 +39,11 @@ export class CommonController {
 
   //사이트에서 자주 사용되는 특별처리 리스트
   @Get('list')
-  async getPreOrderSpecialList(
-    //@Req() req: Request,
-    @Query('ampCode') ampCode: string,
-    @Query('siteCode') siteCode: string, //@Req() req: Request,
-  ): Promise<string> {
-    console.log(ampCode);
-    console.log(siteCode);
-    return await this.commonService.getPreOrderSpecialList({
-      ampCode,
-      siteCode,
-    });
+  async getPreOrderSpecialList() //@Req() req: Request,
+
+  //@Query('siteCode') siteCode: string, //@Req() req: Request,
+  : Promise<string> {
+    return await this.commonService.getPreOrderSpecialList();
   }
   /*
   //조건문 특별처리 리스트 불러오기
