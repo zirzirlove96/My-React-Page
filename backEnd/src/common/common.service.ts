@@ -22,15 +22,30 @@ export class CommonService {
     private dataSource: DataSource,
   ) {}
 
+  //SELECT a.code, a.name FROM study.auto_order as a inner join study.login_site as b on a.code = b.siteCode and b.ampCode = 'amp_engine'
   async getAccount(ampCode: string): Promise<LoginSite[]> {
-    const result = await this.loginsiteRepository.find({
-      select: {
-        siteCode: true,
-      },
-      where: {
-        ampCode: ampCode,
-      },
-    });
+    let result;
+    try {
+      /*result = await this.loginsiteRepository.find({
+        select: {
+          siteCode: true,
+        },
+        where: {
+          ampCode: ampCode,
+        },
+      });*/
+      result = await this.autoOrderRepository
+        .createQueryBuilder('auto_order')
+        .select(['auto_order.code', 'auto_order.name'])
+        .innerJoin('auto_order', 'login_site')
+        //.where('order.code = :siteCode')
+        .andWhere('ampCode = :ampCode', { ampCode: 'amp_engine' })
+        .getMany();
+      console.log(result);
+      return result;
+    } catch (e) {
+      console.error(e);
+    }
     return result;
   }
 
@@ -48,8 +63,6 @@ export class CommonService {
         },
       });*/
       orderinfo = await this.autoOrderRepository.find();
-
-      console.log(orderinfo);
     } catch (e) {
       console.error(e);
     }

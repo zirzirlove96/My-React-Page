@@ -26,21 +26,26 @@ let CommonService = class CommonService {
         this.dataSource = dataSource;
     }
     async getAccount(ampCode) {
-        const result = await this.loginsiteRepository.find({
-            select: {
-                siteCode: true,
-            },
-            where: {
-                ampCode: ampCode,
-            },
-        });
+        let result;
+        try {
+            result = await this.autoOrderRepository
+                .createQueryBuilder('auto_order')
+                .select(['auto_order.code', 'auto_order.name'])
+                .innerJoin('auto_order', 'login_site')
+                .andWhere('ampCode = :ampCode', { ampCode: 'amp_engine' })
+                .getMany();
+            console.log(result);
+            return result;
+        }
+        catch (e) {
+            console.error(e);
+        }
         return result;
     }
     async getOrderInfo(siteCode) {
         let orderinfo;
         try {
             orderinfo = await this.autoOrderRepository.find();
-            console.log(orderinfo);
         }
         catch (e) {
             console.error(e);

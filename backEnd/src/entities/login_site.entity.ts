@@ -1,4 +1,11 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { AutoOrder } from './auto_order';
 
 @Entity({ database: 'study', name: 'login_site' })
 export class LoginSite {
@@ -14,4 +21,8 @@ export class LoginSite {
 
   @PrimaryGeneratedColumn()
   number: number;
+
+  /*@OneToOne(() => AutoOrder, { eager: true })
+  @JoinColumn({ name: 'siteCode' })
+  auto_order: AutoOrder;*/
 }

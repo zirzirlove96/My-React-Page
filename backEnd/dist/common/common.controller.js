@@ -25,7 +25,6 @@ let CommonController = class CommonController {
         return await this.commonService.getAccount(ampCode);
     }
     async getOrderInfo(siteCode) {
-        console.log(siteCode);
         return await this.commonService.getOrderInfo(siteCode);
     }
     async insertOrderSpecial(body) {
