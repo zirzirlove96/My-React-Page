@@ -27,13 +27,15 @@ let CommonService = class CommonService {
     }
     async getAccount(ampCode) {
         let result;
+        let i = 0;
         try {
-            result = await this.autoOrderRepository
-                .createQueryBuilder('auto_order')
-                .select(['auto_order.code', 'auto_order.name'])
-                .innerJoin('auto_order', 'login_site')
-                .andWhere('ampCode = :ampCode', { ampCode: 'amp_engine' })
-                .getMany();
+            const result = await this.autoOrderRepository
+                .createQueryBuilder('a')
+                .select(['a.code', 'a.name'])
+                .innerJoin('login_site', 'b', 'a.code = :siteCode AND b.ampCode = :ampCode', { ampCode: 'amp_engine', siteCode: 'A087' })
+                .getRawMany();
+            i++;
+            console.log(i);
             console.log(result);
             return result;
         }

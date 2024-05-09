@@ -1,10 +1,19 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  Relation,
+} from 'typeorm';
+import { LoginSite } from './login_site.entity';
 
 @Entity({ database: 'study', name: 'auto_order' })
 export class AutoOrder {
   @Column()
   @PrimaryGeneratedColumn()
-  number: string;
+  number: number;
 
   @Column()
   code: string;
@@ -18,4 +27,7 @@ export class AutoOrder {
   //중복기준
   @Column()
   overlap_mode: number;
+
+  @ManyToOne(() => LoginSite, (login_site) => login_site.auto_order)
+  login_site: LoginSite;
 }

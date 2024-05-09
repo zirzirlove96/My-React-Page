@@ -11,12 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LoginSite = void 0;
 const typeorm_1 = require("typeorm");
+const auto_order_1 = require("./auto_order");
 let LoginSite = class LoginSite {
 };
 exports.LoginSite = LoginSite;
 __decorate([
     (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], LoginSite.prototype, "ampCode", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
@@ -30,6 +31,11 @@ __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
 ], LoginSite.prototype, "number", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => auto_order_1.AutoOrder, (auto_order) => auto_order.login_site),
+    (0, typeorm_1.JoinColumn)({ name: 'siteCode' }),
+    __metadata("design:type", Array)
+], LoginSite.prototype, "auto_order", void 0);
 exports.LoginSite = LoginSite = __decorate([
     (0, typeorm_1.Entity)({ database: 'study', name: 'login_site' })
 ], LoginSite);

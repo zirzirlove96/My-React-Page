@@ -11,13 +11,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AutoOrder = void 0;
 const typeorm_1 = require("typeorm");
+const login_site_entity_1 = require("./login_site.entity");
 let AutoOrder = class AutoOrder {
 };
 exports.AutoOrder = AutoOrder;
 __decorate([
     (0, typeorm_1.Column)(),
     (0, typeorm_1.PrimaryGeneratedColumn)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], AutoOrder.prototype, "number", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
@@ -35,6 +36,10 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
 ], AutoOrder.prototype, "overlap_mode", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => login_site_entity_1.LoginSite, (login_site) => login_site.auto_order),
+    __metadata("design:type", login_site_entity_1.LoginSite)
+], AutoOrder.prototype, "login_site", void 0);
 exports.AutoOrder = AutoOrder = __decorate([
     (0, typeorm_1.Entity)({ database: 'study', name: 'auto_order' })
 ], AutoOrder);
